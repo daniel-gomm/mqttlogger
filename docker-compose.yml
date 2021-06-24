@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+        mqtt-logger:
+                image: mqtt-logger:0.2
+                environment:
+                        - LOGGING_MQTT_HOST=ipe-streampi-01.fzi.de
+                        - LOGGING_FILE_PATH=/etc/logs
+                        - PYTHONUNBUFFERED=1
+                networks:
+                        default:
+                ports:
+                        - "1883:1883"
+                volumes:
+                        - type: bind
+                          source: ./logs
+                          target: /etc/logs
+
+networks:
+        default:
+                external:
+                        name: mqttnet
